@@ -246,7 +246,7 @@ function searchLocation() {
         request.onload = function() {
             // Begin accessing JSON data here
             var data = JSON.parse(this.response);
-            console.log(data);
+            // console.log(data);
 
             data.features.forEach(val => {
                 searchResult += `
