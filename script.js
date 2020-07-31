@@ -1,6 +1,7 @@
 const coordinates = { x: 0, y: 0 };
 let up = 4;
 let down = 0;
+let index = 0;
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhuYW1tIiwiYSI6ImNrZDhrdXJrcDJrc3Uyc3E5eXpvbnlrMHoifQ.BVSR7lFvAEGFihZ0p1i11w';
 const map = new mapboxgl.Map({
@@ -275,6 +276,9 @@ function focusOut() {
 }
 
 function movePlace(x, y, text) {
+    document.getElementsByClassName("mapboxgl-popup")[index].innerHTML = "";
+    index++;
+
     // console.log(x, y);
     map.flyTo({
         center: [x, y],
