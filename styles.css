@@ -9,6 +9,7 @@ body {
 #map {
     height: 100vh;
     width: 100%;
+    z-index: 0;
 }
 
 .mapboxgl-ctrl-top-right {
@@ -99,4 +100,9 @@ p {
 
 .hoverSearchResultClass {
     background-color: rgba(0, 0, 0, .1);
+}
+
+#hidenInput {
+    position: absolute;
+    z-index: -2;
 }

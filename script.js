@@ -334,7 +334,9 @@ function setKeyDown(event) {
         Array.from(array).forEach((val, index, arr) => {
             if (array[index].classList.contains("hoverSearchResultClass")) {
                 array[index].onclick();
-                document.getElementById("searchForm").onfocus = false;
+                let e = document.getElementById("hidenInput");
+                e.focus();
+                e.select();
                 document.getElementById("locationSuggestion").style.display = "none";
             }
         })
