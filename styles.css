@@ -33,8 +33,9 @@ body {
 }
 
 .mapboxgl-popup {
+    top: -30px !important;
     max-width: 400px;
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font: 12px/20px 'Poppins', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
 #searchForm {
@@ -94,4 +95,8 @@ p {
     padding: 5px 10px;
     border: none;
     border-radius: 2px;
+}
+
+.hoverSearchResultClass {
+    background-color: rgba(0, 0, 0, .1);
 }

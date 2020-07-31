@@ -1,4 +1,6 @@
 const coordinates = { x: 0, y: 0 };
+let up = 4;
+let down = 0;
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhuYW1tIiwiYSI6ImNrZDhrdXJrcDJrc3Uyc3E5eXpvbnlrMHoifQ.BVSR7lFvAEGFihZ0p1i11w';
 const map = new mapboxgl.Map({
@@ -236,6 +238,8 @@ map.on('load', function() {
 var request = new XMLHttpRequest()
 
 function searchLocation() {
+    up = 4;
+    down = 0;
     let textSearch = document.getElementById("mySearch").value;
     let searchResult = "";
 
@@ -246,7 +250,7 @@ function searchLocation() {
         request.onload = function() {
             // Begin accessing JSON data here
             var data = JSON.parse(this.response);
-            // console.log(data);
+            console.log(data);
 
             data.features.forEach(val => {
                 searchResult += `
@@ -277,6 +281,8 @@ function movePlace(x, y, text) {
         essential: true // this animation is considered essential with respect to prefers-reduced-motion
     });
 
+    document.getElementById("mySearch").value = text;
+
     addMakerAndPopup(x, y, text);
     updateCoordinate(x, y);
     focusOut();
@@ -285,4 +291,52 @@ function movePlace(x, y, text) {
 function updateCoordinate(x, y) {
     coordinates.x = x;
     coordinates.y = y;
+}
+
+// Set key down
+document.addEventListener("keydown", setKeyDown, false);
+
+function setKeyDown(event) {
+    const array = document.getElementsByClassName("searchResult");
+
+    // keyDown UP
+    if (event.keyCode === 38) {
+        Array.from(array).forEach((val, index, arr) => {
+            array[index].classList.remove("hoverSearchResultClass");
+        })
+        if (up < 0) {
+            up = 4;
+            array[up].classList.add("hoverSearchResultClass");
+        } else {
+            array[up].classList.add("hoverSearchResultClass");
+        }
+        up--;
+        down = up + 2;
+    }
+
+    // keyDown DOWN
+    if (event.keyCode === 40) {
+        Array.from(array).forEach((val, index, arr) => {
+            array[index].classList.remove("hoverSearchResultClass");
+        })
+        if (down > 4) {
+            down = 0;
+            array[down].classList.add("hoverSearchResultClass");
+        } else {
+            array[down].classList.add("hoverSearchResultClass");
+        }
+        down++;
+        up = down - 2;
+    }
+
+    // keyDown ENTER
+    if (event.keyCode === 13) {
+        Array.from(array).forEach((val, index, arr) => {
+            if (array[index].classList.contains("hoverSearchResultClass")) {
+                array[index].onclick();
+                document.getElementById("searchForm").onfocus = false;
+                document.getElementById("locationSuggestion").style.display = "none";
+            }
+        })
+    }
 }
